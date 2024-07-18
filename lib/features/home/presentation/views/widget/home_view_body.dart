@@ -10,41 +10,43 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return const CustomScrollView(
-      slivers: [SliverToBoxAdapter(
-        child:  Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomAppBar(),
-            Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                'For you',
-                style: Style.textStyle16,
+    return const SafeArea(
+      child: CustomScrollView(
+        slivers: [SliverToBoxAdapter(
+          child:  Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomAppBar(),
+              Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  'For you',
+                  style: Style.textStyle16,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 7,
-            ),
-            FeaturedBookHorizontalListView(),
-            SizedBox(
-              height: 22,
-            ),
-            Padding(
-              padding:  EdgeInsets.only(left: 10),
-              child: Text(
-                'Newset Books',
-                style: Style.textStyle16,
+              SizedBox(
+                height: 7,
               ),
-            ),
-           
-          ],
+              FeaturedBookHorizontalListView(),
+              SizedBox(
+                height: 22,
+              ),
+              Padding(
+                padding:  EdgeInsets.only(left: 10),
+                child: Text(
+                  'Newset Books',
+                  style: Style.textStyle16,
+                ),
+              ),
+             
+            ],
+          ),
         ),
+        SliverToBoxAdapter(
+          child:    BestSellerVerticalListView(),
+        )
+        ],
       ),
-      SliverToBoxAdapter(
-        child:    BestSellerVerticalListView(),
-      )
-      ],
     );
     
   }
