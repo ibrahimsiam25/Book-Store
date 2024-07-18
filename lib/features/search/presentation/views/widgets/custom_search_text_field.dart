@@ -13,6 +13,9 @@ class CustomSearchTextField extends StatelessWidget {
       onSubmitted: (value){
          BlocProvider.of<SearchBooksCubit>(context).fetchBooks(value);
       },
+        onChanged: (value){
+         BlocProvider.of<SearchBooksCubit>(context).fetchBooks(value);
+      },
       style:const TextStyle(
         fontSize: 16.0, 
         color: secondryTextColor// Set the font size of the input text
