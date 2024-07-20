@@ -21,18 +21,25 @@ class FeaturedHorizontalListViewBookDetails extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: state.books.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: GestureDetector(
-                     onTap: () {
-      GoRouter.of(context).push(AppRouter.kBookDetialsView,extra:state.books[index]);
-      },
-                    child: FeaturedListViewItem(
-                      imageUrl:
-                          state.books[index].volumeInfo.imageLinks?.thumbnail??"",
+                if (state.books[index].volumeInfo.imageLinks == null ||
+                    state.books[index].volumeInfo.title == null ||
+                    state.books[index].volumeInfo.authors?[0] == null) {
+                  return Container();
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: GestureDetector(
+                      onTap: () {
+                        GoRouter.of(context).push(AppRouter.kBookDetialsView,
+                            extra: state.books[index]);
+                      },
+                      child: FeaturedListViewItem(
+                        imageUrl:
+                            state.books[index].volumeInfo.imageLinks!.thumbnail,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               }),
         );
       } else if (state is SimilarBooksFilaure) {

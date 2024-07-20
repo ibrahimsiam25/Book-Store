@@ -35,9 +35,7 @@ class SearchViewBoody extends StatelessWidget {
             ],
           ),
         )),
-        SliverToBoxAdapter(
-          child: SerchLsitView()
-        )
+        SliverToBoxAdapter(child: SerchLsitView())
       ],
     );
   }
@@ -50,34 +48,36 @@ class SerchLsitView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBooksCubit, SearchBooksState>(
       builder: (context, state) {
-        if (state is SearchBooksSuccess){
-          return  Padding(
-            padding:const EdgeInsets.symmetric(horizontal: 10) ,
+        if (state is SearchBooksSuccess) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ListView.builder(
-                  shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    itemCount: state.books.length,
-                    itemBuilder: (context, index) {
-            return Padding(
-              padding:const EdgeInsets.only(top: 10),
-              child: BestSellersListViewItem(bookModel: state.books[index],));
-                    }),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                itemCount: state.books.length,
+                itemBuilder: (context, index) {
+                  if (state.books[index].volumeInfo.imageLinks == null ||
+                      state.books[index].volumeInfo.title == null ||
+                      state.books[index].volumeInfo.authors?[0] == null) {
+                    return Container();
+                  } else {
+                    return Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: BestSellersListViewItem(
+                          bookModel: state.books[index],
+                        ));
+                  }
+                }),
           );
-        }
-      else   if (state  is SearchBooksFailure){
+        } else if (state is SearchBooksFailure) {
           return CustomErrorWidget(text: state.errMessage);
-         }
-          else if(state is SearchBooksLoading){
-            return const CustomLoadingIndicator();
-          }
-         else{
+        } else if (state is SearchBooksLoading) {
+          return const CustomLoadingIndicator();
+        } else {
           return const CustomNoResult(text: "search by book name");
-         }
+        }
       },
     );
-   
   }
 }
-
-

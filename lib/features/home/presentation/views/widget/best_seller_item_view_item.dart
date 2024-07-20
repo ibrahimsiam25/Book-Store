@@ -20,7 +20,7 @@ class BestSellersListViewItem extends StatelessWidget {
         height: MediaQuery.of(context).size.height * .18,
         child: Row(
           children: [
-           FeaturedListViewItem(imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail??""),
+           FeaturedListViewItem(imageUrl: bookModel.volumeInfo.imageLinks!.thumbnail),
             const SizedBox(
               width: 16,
             ),
@@ -35,7 +35,7 @@ class BestSellersListViewItem extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: Style.textStyleInter14 )),
-                  Text(bookModel.volumeInfo.authors?[0]??"unkwon auther", style: Style.textStyleInterSecondry14),
+                  Text(bookModel.volumeInfo.authors![0], style: Style.textStyleInterSecondry14),
                 const  Spacer(flex: 3,),
                 Row(
                     children: [

@@ -21,13 +21,12 @@ class HomeRepoImplementation implements HomeRepo {
         try {
           books.add(BookModel.fromJson(item));
         } catch (e) {
-          books.add(BookModel.fromJson(item));
         }
       }
 
       return right(books);
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(
           ServerFailure.fromDioError(e),
         );
@@ -47,12 +46,16 @@ class HomeRepoImplementation implements HomeRepo {
           endPoint: 'volumes?Filtering=free-ebooks&q=subject:Programming');
       List<BookModel> books = [];
       for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
+        try {
+  books.add(BookModel.fromJson(item));
+} on Exception catch (e) {
+  // TODO
+}
       }
 
       return right(books);
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(
           ServerFailure.fromDioError(e),
         );
@@ -76,14 +79,13 @@ class HomeRepoImplementation implements HomeRepo {
         try {
           books.add(BookModel.fromJson(item));
         } catch (e) {
-          books.add(BookModel.fromJson(item));
           print("fetchNewsetBooks");
         }
       }
 
       return right(books);
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         return left(
           ServerFailure.fromDioError(e),
         );

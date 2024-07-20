@@ -12,34 +12,41 @@ class FeaturedBookHorizontalListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FeaturedBooksCubit,FeaturedBooksState>(
-      builder: (context,state) {
+    return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
+      builder: (context, state) {
         if (state is FeaturedBooksSuccess) {
-  return    SizedBox(
-  height: MediaQuery.of(context).size.height*.22,
-  child: ListView.builder(
-    itemCount: state.books.length,
-    physics: const BouncingScrollPhysics(),
-    scrollDirection: Axis.horizontal,
-    itemBuilder: (context,index){
-    return Padding(padding: const EdgeInsets.only(left: 10 ),
-    child: GestureDetector(
-      onTap: () {
-      GoRouter.of(context).push(AppRouter.kBookDetialsView,extra:state.books[index]);
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * .22,
+            child: ListView.builder(
+                itemCount: state.books.length,
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  if (state.books[index].volumeInfo.imageLinks == null) {
+                    return Container();
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: GestureDetector(
+                          onTap: () {
+                            GoRouter.of(context).push(
+                                AppRouter.kBookDetialsView,
+                                extra: state.books[index]);
+                          },
+                          child: FeaturedListViewItem(
+                              imageUrl: state.books[index].volumeInfo
+                                  .imageLinks!.thumbnail)),
+                    );
+                  }
+                }),
+          );
+        }
+        if (state is FeaturedBooksFailure) {
+          return CustomErrorWidget(text: state.errMessage);
+        } else {
+          return const CustomLoadingIndicator();
+        }
       },
-      child: FeaturedListViewItem(imageUrl: state.books[index].volumeInfo.imageLinks?.thumbnail??"")),
-    );
-  }),
-        );
-}
-if(state is FeaturedBooksFailure){
-  return CustomErrorWidget(text: state.errMessage);
-}
-else{
-  return const CustomLoadingIndicator();
-}
-        },
-    
     );
   }
 }
