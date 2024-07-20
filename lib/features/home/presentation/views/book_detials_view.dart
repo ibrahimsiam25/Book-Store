@@ -16,7 +16,7 @@ class _BookDetialsViewState extends State<BookDetialsView> {
   @override
   void initState() {
     //triger my function when use book detials  only 
-    BlocProvider.of<SimilarBooksCubit>(context).fetchSimilarBooks(widget.bookModel.volumeInfo.categories![0]);
+    BlocProvider.of<SimilarBooksCubit>(context).fetchSimilarBooks(widget.bookModel.volumeInfo.categories?[0]??"");
     super.initState();
   }
   @override
