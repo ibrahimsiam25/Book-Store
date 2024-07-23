@@ -8,21 +8,18 @@ class ShimmerContinar extends StatelessWidget {
   @override
   Widget build(context) {
     return SizedBox(
-  width: 200.0,
-  height: 100.0,
-  child: Shimmer.fromColors(
-    baseColor: secondryTextColor,
-    highlightColor: primaryTextColor,
-    child: Container(
-      width: 100,
-      height: 100,
-      decoration:BoxDecoration(
-        color: secondryTextColor,
-        borderRadius: BorderRadius.circular(16)
-
-      ) ,
-    )
-  ),
-); ;
+      width: 200.0,
+      height: 100.0,
+      child: Shimmer.fromColors(
+          baseColor: secondryTextColor,
+          highlightColor: primaryTextColor,
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+                color: secondryTextColor,
+                borderRadius: BorderRadius.circular(16)),
+          )),
+    );
   }
 }
