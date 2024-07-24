@@ -16,12 +16,7 @@ class ApiService {
         options: Options(
           headers: headers,
         ));
-    if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception(
-          'there is a problem with status code ${response.statusCode}');
-    }
+ return response.data;
   }
 
   Future<dynamic> post(
@@ -37,12 +32,7 @@ class ApiService {
       options: Options(headers: headers),
       data: data,
     );
-     if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception(
-          'there is a problem with status code ${response.statusCode}');
-    }
+ return response.data;
   }
 
   Future<dynamic> put(
@@ -61,11 +51,6 @@ class ApiService {
       data: data,
     );
     print(response.data);
-     if (response.statusCode == 200) {
-      return response.data;
-    } else {
-      throw Exception(
-          'there is a problem with status code ${response.statusCode}');
-    }
+ return response.data;
   }
 }
