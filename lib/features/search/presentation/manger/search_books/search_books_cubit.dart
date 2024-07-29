@@ -12,6 +12,9 @@ class SearchBooksCubit extends Cubit<SearchBooksState> {
     emit(SearchBooksLoading());
     var result = await searchRepo.fetchBooks(textSearch: textSearch);
     result.fold((failure) {
+         if(failure.errMessage=="type 'Null' is not a subtype of type 'Iterable<dynamic>'"){
+         emit(SearchBooksFailure("no books found"));
+      }
       emit(SearchBooksFailure(failure.errMessage));
     }, (books) {
       emit(SearchBooksSuccess(books));
